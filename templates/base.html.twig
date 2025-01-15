@@ -1,0 +1,67 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>{% block title %}Circle Blog!{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BankShop</title>
+
+    <link rel="icon" href="{{asset('image/balance.png')}}"/>
+
+    <link rel="stylesheet" href="{{asset('style.css')}}" type="text/css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+</head> 
+
+<header> 
+            <a href="/"><img src="{{asset('image/icon.png')}}" alt="home" width="200" class ="icon"></a>
+
+            <a href="/">Connexion</a> 
+            
+            <a href="/">Epargne</a>
+            
+            <a href="{{ path('app_contact') }}">Nous Contactez</a>
+            
+             <a href="../"> <button type="submit">Mon compte</button> </a>
+
+            </header>
+
+            <body> 
+            {% block body %}
+            {% endblock %}
+
+            <main>
+             {% block main %}
+             {% endblock %}
+
+
+    </main>
+            {% block div %}
+             {% endblock %}
+</body>
+    <footer>
+    <a href="/">Service</a>
+
+    <a href="/">A propos</a>
+
+    <a href="/">Privacy Policy</a>
+
+    Retrouvez nous:
+    <img src="{{ asset('image/twitter.png') }}" alt="twitter" width ="50">
+
+    <img src="{{ asset('image/instagram.png') }}" alt="instagram" width="50">
+
+    <img src="{{ asset('image/facebook.png') }}" alt="facebbok" width="50">
+
+</footer>
+
+
+</html>
