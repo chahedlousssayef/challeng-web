@@ -108,7 +108,7 @@ main button {
 main button:hover{
     background-color: lightblue;
 }
-.texte {
+.texte_main_promo {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -144,7 +144,7 @@ main button:hover{
     padding-top: 50px;
 }
 
-.text_contact {
+.contact_dispo {
     margin-left: 12%;
     color: white;
 }
