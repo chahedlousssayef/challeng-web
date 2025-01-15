@@ -209,9 +209,12 @@ main button:hover{
     align-items: center;
     padding-bottom: 0px;
     margin-bottom: 0px;
+    color: white;
 }
 
 .Form_contact textarea {
+    margin-top: 20px;
+    border: 0px;
     border-radius: 15px;
     resize: none;
     height: 200px;
@@ -225,6 +228,7 @@ main button:hover{
 .Form_info input {
     border-radius: 15px;
     height: 30px;
+    border: 0px;
 }
 
 .Button_submit {
