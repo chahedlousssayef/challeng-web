@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{text}}{% endblock %}
+
+{% block body %}
+
+{% endblock %}
+
+{% block main %}
+	<style>
+		main {
+			background-image: url("{{ asset('image/ImagedeFondAccueil.jpg') }}");
+ 			background-repeat:no-repeat;
+ 			background-size:cover;
+			height: 80%;
+			} 
+	</style>
+	<div class = "texte_main_promo">
+		Prenez soin de votre compte <br> &emsp; &emsp; dès maintenant!
+		<a href="../"> <button type="submit">Ma Banque</button> </a>
+	</div>
+{% endblock %}
+
+{% block div %}
+	<div class = "bas_Acceuil">
+		<p class ="piggy_bank">"Nous engageons a nos client que vos transactions soient effectués pleinement"<br> <br>
+			Jean - Directeur de Bankshop
+		</p>
+			<img src="{{ asset('image/imageAcceuil2.jpg') }}" alt="image piggy bank" width="50">
+		<p class ="bas_Acceuil_info">
+			<img src="{{ asset('image/check-circle.svg') }}" alt="image piggy bank" width="60">100% sécurisé              <img src="{{ asset('image/lightning.svg') }}" alt="image piggy bank" width="60">Transactions rapide
+ 		</p>
+
+	</div>
+{% endblock %}
+
