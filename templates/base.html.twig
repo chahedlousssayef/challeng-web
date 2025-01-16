@@ -24,13 +24,13 @@
 <header> 
             <a href="/"><img src="{{asset('image/icon.png')}}" alt="home" width="200" class ="icon"></a>
 
-            <a href="/">Connexion</a> 
+            <a href="{{ path('app_login') }}">Connexion</a> 
             
             <a href="/">Epargne</a>
             
             <a href="{{ path('app_contact') }}">Nous Contactez</a>
             
-             <a href="../"> <button type="submit">Mon compte</button> </a>
+             <a href="{{ path('app_compte') }}"> <button type="submit">Mon compte</button> </a>
 
             </header>
 
