@@ -12,7 +12,7 @@ class HomeController extends AbstractController
     #[Route('/template/home/index.html.twig')]
     public function index(): Response
     {
-        $text = "Page d'acceuil";
+        $text = "BankShop";
 
         return $this->render('home/index.html.twig', [
             'text' => $text,
