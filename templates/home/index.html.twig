@@ -16,9 +16,25 @@
 			} 
 	</style>
 	<div class = "texte_main_promo">
-		Prenez soin de votre compte <br> &emsp; &emsp; dès maintenant!
+		Prenez soin de votre compte <br> &emsp; &emsp;
+		<div class = "Texte_main_under">dès maintenant!</div>
 		<a href="../"> <button type="submit">Ma Banque</button> </a>
 	</div>
+	<style>
+		.texte_main_promo{
+			filter: drop-shadow(1px 1px 0.50px gray);
+			font-family: 'Newsreader', sans-serif;
+			display: flex;
+    			flex-wrap: wrap;
+			font-size: 320%;
+			margin-top: 2%;
+		}
+		.Texte_main_under{
+			filter: drop-shadow(1px 0.50px 0.50px gray);
+			font-family: "Inter", serif;
+			font-size: 60%;
+		}
+	</style>
 {% endblock %}
 
 {% block div %}
