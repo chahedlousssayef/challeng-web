@@ -23,6 +23,9 @@ class Compte
     #[ORM\Column(type: Types::BIGINT)]
     private ?string $numero = null;
 
+    #[ORM\Column]
+    private ?bool $type = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Compte
     public function setNumero(string $numero): static
     {
         $this->numero = $numero;
+
+        return $this;
+    }
+
+    public function isType(): ?bool
+    {
+        return $this->type;
+    }
+
+    public function setType(bool $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }
