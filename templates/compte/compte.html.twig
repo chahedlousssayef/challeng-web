@@ -10,12 +10,11 @@
                 <h2>{{ Compte.nom }}</h2>
                 <p>{{ Compte.solde}}</p>
                 <p>{{ Compte.type}}</p>
-                <a href="{{ path('app_compte_new') }}" class="Compte_button"> Creez un compte</a>
-
+        {% endfor %}   
+        <a href="{{ path('app_compte_new') }}" class="Compte_button"> Creez un compte</a>
     {% else %}
 
         <a href="{{ path('app_login') }}" class="Creation-button"> Connectez-Vous!</a>
-        {% endfor %}   
     {% endif %}
 
 {% endblock %}
