@@ -24,11 +24,12 @@ header a {
 }
 
 header button{
-    background-color: green;
+    background-color: #528B20;
     color: white;
     border-radius: 10px;
     border: none;
     padding: 15px;
+    filter: drop-shadow(3px 3px 1.50px gray);
 }
 
 header button:hover {
@@ -41,7 +42,7 @@ body{
 
 }
 
-main        {
+main {
     width: 90%;
     padding-top: 20px;
     display: flex;
@@ -98,11 +99,18 @@ main        {
 }
 
 main button {
-    background-color: green;
+    font-family: "Inter", serif;
+    background-color: #528B20;
     color: white;
-    border-radius: 10px;
+    border-radius: 25px;
     border: none;
     padding: 15px;
+    margin-left: 1px;
+    margin-top: 20px;
+    height: 60px;
+    width: 220px;
+    font-size: 28px;
+    filter: drop-shadow(3px 3px 1.50px gray);
 }
 
 main button:hover{
