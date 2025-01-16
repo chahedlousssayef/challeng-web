@@ -31,6 +31,14 @@ des dépots d'argent mais aussi de faire des virements dans un environnement int
 Chaque personne peut ouvrir jusqu'a 5 comptes maximum (épargne ou courant) toute en bénéficiant d'une 
 sécurité maximale garantissant le bien-être des clients
 
+Prérequis :
+Tests Unitaire (veuillez activer l'extension mbstring dans votre Php.ini et retirez le point virgule
+puis faites cette commande à la racine du projet :   php bin/phpunit tests/Controller/BaseTemplateTest.php    
+et ajuster avec les noms de test present dans ce dossier)
+
+
+
+
 Nos Principales fonctionnalités sont :
 
 Consultation des dépots et retraits de son compte
