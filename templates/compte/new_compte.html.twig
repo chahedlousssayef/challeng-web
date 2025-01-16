@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte{% endblock %}
+
+{% block main %}
+
+    {% if app.user %}
+
+        <h1>Register</h1>
+
+        {{ form_errors(Compteform) }}
+
+            {{ form_start(Compteform) }}
+            {{ form_row(Compteform.numero) }}
+            {{ form_row(Compteform.solde, {
+                label: 'Solde'
+            }) }}
+
+        <button type="submit" class="btn">Register</button>
+        {{ form_end(Compteform) }}
+
+    {% endif %}
+{% endblock %}
