@@ -4,17 +4,15 @@
 
 {% block main %}
     {% if app.user %}
-
         {% for Compte in Comptes %}
-            <div class = "Compte">
+            <div class="Compte">
                 <h2>{{ Compte.nom }}</h2>
-                <p>{{ Compte.solde}}</p>
-                <p>{{ Compte.type}}</p>
-        {% endfor %}   
-        <a href="{{ path('app_compte_new') }}" class="Compte_button"> Creez un compte</a>
+                <p>{{ Compte.solde }}</p>
+                <p>{{ Compte.type }}</p>
+            </div>
+        {% endfor %}
+        <a href="{{ path('app_compte_new') }}" class="Compte_button">Créez un compte bancaire</a>
     {% else %}
-
-        <a href="{{ path('app_login') }}" class="Creation-button"> Connectez-Vous!</a>
+        <a href="{{ path('app_login') }}" class="Creation-button">Connectez-Vous!</a>
     {% endif %}
-
 {% endblock %}
