@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CompteRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Compte
 {
     #[ORM\Id]
@@ -78,4 +79,12 @@ class Compte
 
         return $this;
     }
+
+    #[ORM\PrePersist]
+    public function generateNumero(): void
+    {
+        $this->numero = (string) random_int(1000000000, 9999999999);
+    }
+
 }
+
