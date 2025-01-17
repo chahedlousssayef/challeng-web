@@ -10,6 +10,9 @@
                 <p>{{ Compte.solde }}</p>
                 <p>{{ Compte.type }}</p>
             </div>
+
+           <a href="{{ path('compte_update', {id: Compte.id}) }}" class="login_button"> Ajouter de l'argent </a>
+
         {% endfor %}
         <a href="{{ path('app_compte_new') }}" class="Compte_button">Créez un compte bancaire</a>
     {% else %}
