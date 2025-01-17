@@ -40,4 +40,51 @@ final class CompteController extends AbstractController
             'Compteform' => $Compteform->createView(),
         ]);
     }
+     //Fonction du dépot d'argent dans la banque d'un compte
+    #[Route('/compte/depot/{id}', name: 'app_compte_depot', methods: ['POST'])]
+    public function depot(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $montant = $request->request->get('montant'); 
+        // Validation du montant
+        if ($this->isInvalidMontant($montant)) {
+            $this->addFlash('error', 'Montant invalide.');
+            return $this->redirectToRoute('app_compte');
+        }
+    
+        // Récupération du compte
+        $compte = $this->getCompteById($id, $entityManager);
+        if (!$compte) {
+            $this->addFlash('error', 'Compte introuvable.');
+            return $this->redirectToRoute('app_compte');
+        }
+    
+        //  Dépôt sur le compte
+        $this->effectuerDepot($compte, $montant, $entityManager);
+    
+        // Message de succès et redirection
+        $this->addFlash('success', 'Montant déposé avec succès !');
+        return $this->redirectToRoute('app_compte');
+    }
+    
+    
+    // Vérifie si le montant est valide.
+    private function isInvalidMontant($montant): bool
+    {
+        return !$montant || $montant <= 0;
+    }
+    
+    
+    // Récupère un compte par son ID
+    private function getCompteById(int $id, EntityManagerInterface $entityManager): ?Compte
+    {
+        return $entityManager->getRepository(Compte::class)->find($id);
+    }
+    
+    
+    // Effectue le dépôt sur le compte.
+    private function effectuerDepot(Compte $compte, float $montant, EntityManagerInterface $entityManager): void
+    {
+        $compte->setSolde($compte->getSolde() + $montant); 
+        $entityManager->flush();
+    }
 }
