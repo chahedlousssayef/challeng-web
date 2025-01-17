@@ -37,3 +37,4 @@ class UserProvider implements UserProviderInterface
         return User::class === $class;
     }
 }
+
