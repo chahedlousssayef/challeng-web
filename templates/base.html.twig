@@ -19,20 +19,23 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader&display=swap" rel="stylesheet">
-
 </head> 
 
 <header> 
-            <a href="/"><img src="{{asset('image/icon.png')}}" alt="home" width="250" class ="icon"></a>
+            <a href="/"><img src="{{asset('image/icon.png')}}" alt="home" width="200" class ="icon"></a>
 
             <a href="{{ path('app_login') }}">Connexion</a> 
             
             <a href="/">Epargne</a>
             
             <a href="{{ path('app_contact') }}">Nous Contactez</a>
-            
-             <a href="{{ path('app_compte') }}"> <button type="submit">Mon compte</button> </a>
+
+            {% if app.user and is_granted('ROLE_Admin')%}
+
+                <a href="{{ path('app_compte') }}"> <button type="submit">Mes Messages</button> </a>
+            {% endif %}
+
+            <a href="{{ path('app_compte') }}"> <button type="submit">Mon compte</button> </a>
 
             </header>
 
@@ -67,3 +70,4 @@
 
 
 </html>
+
