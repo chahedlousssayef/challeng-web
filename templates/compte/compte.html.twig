@@ -10,6 +10,12 @@
                 <h2>{{ Compte.nom }}</h2>
                 <p>{{ Compte.solde}}</p>
                 <p>{{ Compte.type}}</p>
+
+            <form action="{{ path('app_compte_depot', { id: Compte.id }) }}" method="post">
+                <input type="number" name="montant" placeholder="Montant à déposer" min="0" required>
+                <button type="submit" class="depot-button">Déposer</button>
+            </form>
+            </div>
         {% endfor %}   
         <a href="{{ path('app_compte_new') }}" class="Compte_button"> Creez un compte</a>
     {% else %}
