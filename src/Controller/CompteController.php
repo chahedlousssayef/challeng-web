@@ -40,4 +40,31 @@ final class CompteController extends AbstractController
             'Compteform' => $Compteform->createView(),
         ]);
     }
+
+    #[Route('/compte/{id}/update', name: 'compte_update')]
+    public function update(int $id, EntityManagerInterface $em, Request $request): Response
+    {
+        $entity = $em->getRepository(Compte::class)->find($id);
+    
+        if (!$entity) {
+            throw $this->createNotFoundException('Compte non trouvé');
+        }
+    
+        $Compteform = $this->createForm(CompteFormType::class, $entity);
+        $Compteform->handleRequest($request);
+    
+        if ($Compteform->isSubmitted() && $Compteform->isValid()) {
+            $em->persist($entity);
+            $em->flush();
+    
+            return $this->redirectToRoute('app_compte');
+        }
+    
+        return $this->render('compte/new_compte.html.twig', [
+            'Compteform' => $Compteform->createView(),
+            'action' => 'Modifier',
+        ]);
+    }
+    
+
 }
