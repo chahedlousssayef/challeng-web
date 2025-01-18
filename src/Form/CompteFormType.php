@@ -26,7 +26,6 @@ class CompteFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('numero')
             ->add('type' )
         ;
     }
