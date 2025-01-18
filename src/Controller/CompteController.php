@@ -17,10 +17,10 @@ final class CompteController extends AbstractController
     #[Route('/compte', name: 'app_compte')]
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $Comptes = $entityManager->getRepository(Compte::class)->findAll();
+        $comptes = $entityManager->getRepository(Compte::class)->findAll();
         return $this->render('compte/compte.html.twig', [
             'controller_name' => 'CompteController',
-            'Comptes' => $Comptes,
+            'comptes' => $comptes,
         ]);
     }
 
@@ -28,18 +28,19 @@ final class CompteController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $entity = new Compte();
-        $Compteform = $this->createForm(CompteFormType::class, $entity);
-        $Compteform->handleRequest($request);
+        $compteForm = $this->createForm(CompteFormType::class, $entity);
+        $compteForm->handleRequest($request);
 
-        if ($Compteform->isSubmitted() && $Compteform->isValid()) {
+        if ($compteForm->isSubmitted() && $compteForm->isValid()) {
             $entityManager->persist($entity);
             $entityManager->flush();
 
-            return $this->redirectToRoute('home');
+            // Changer la redirection vers la page des comptes
+            return $this->redirectToRoute('app_compte');
         }
 
         return $this->render('compte/new_compte.html.twig', [
-            'Compteform' => $Compteform->createView(),
+            'compteForm' => $compteForm->createView(),
         ]);
     }
 
@@ -52,10 +53,10 @@ final class CompteController extends AbstractController
             throw $this->createNotFoundException('Compte non trouvé');
         }
     
-        $Compteform = $this->createForm(CompteFormType::class, $entity);
-        $Compteform->handleRequest($request);
+        $compteForm = $this->createForm(CompteFormType::class, $entity);
+        $compteForm->handleRequest($request);
     
-        if ($Compteform->isSubmitted() && $Compteform->isValid()) {
+        if ($compteForm->isSubmitted() && $compteForm->isValid()) {
             $em->persist($entity);
             $em->flush();
     
@@ -63,7 +64,7 @@ final class CompteController extends AbstractController
         }
     
         return $this->render('compte/new_compte.html.twig', [
-            'Compteform' => $Compteform->createView(),
+            'compteForm' => $compteForm->createView(),
             'action' => 'Modifier',
         ]);
     }
@@ -77,15 +78,13 @@ final class CompteController extends AbstractController
             throw $this->createNotFoundException('Compte non trouvé.');
         }
 
-        // Création d'un formulaire simple pour ajouter de l'argent
+        // Formulaire pour ajouter de l'argent
         $form = $this->createFormBuilder()
             ->add('montant', MoneyType::class, [
                 'currency' => 'EUR',
                 'label' => 'Montant à ajouter',
                 'constraints' => [
-                    new Positive([
-                        'message' => 'Le montant doit être positif.',
-                    ]),
+                    new Positive([ 'message' => 'Le montant doit être positif.' ]), 
                 ],
             ])
             ->getForm();
@@ -96,9 +95,8 @@ final class CompteController extends AbstractController
             $data = $form->getData();
             $montant = $data['montant'];
 
-            // Ajouter le montant au solde du compte
+            // Ajouter l'argent au solde du compte
             $compte->setSolde($compte->getSolde() + $montant);
-
             $entityManager->flush();
 
             $this->addFlash('success', 'Montant ajouté avec succès.');
@@ -107,6 +105,51 @@ final class CompteController extends AbstractController
         }
 
         return $this->render('compte/add_money.html.twig', [
+            'form' => $form->createView(),
+            'compte' => $compte,
+        ]);
+    }
+
+    #[Route('/compte/{id}/remove-money', name: 'compte_remove_money', methods: ['GET', 'POST'])]
+    public function removeMoney(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $compte = $entityManager->getRepository(Compte::class)->find($id);
+
+        if (!$compte) {
+            throw $this->createNotFoundException('Compte non trouvé.');
+        }
+
+        // Formulaire pour retirer de l'argent
+        $form = $this->createFormBuilder()
+            ->add('montant', MoneyType::class, [
+                'currency' => 'EUR',
+                'label' => 'Montant à retirer',
+                'constraints' => [
+                    new Positive([ 'message' => 'Le montant doit être positif.' ]), 
+                ],
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $montant = $data['montant'];
+
+            if ($compte->getSolde() >= $montant) {
+                // Retirer l'argent du solde du compte
+                $compte->setSolde($compte->getSolde() - $montant);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Montant retiré avec succès.');
+            } else {
+                $this->addFlash('error', 'Solde insuffisant pour effectuer ce retrait.');
+            }
+
+            return $this->redirectToRoute('app_compte');
+        }
+
+        return $this->render('compte/remove_money.html.twig', [
             'form' => $form->createView(),
             'compte' => $compte,
         ]);
