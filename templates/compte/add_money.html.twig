@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter de l'argent{% endblock %}
+
+{% block body %}
+    <h1>Ajouter de l'argent au compte : {{ compte.numero }}</h1>
+
+    <form method="post">
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-success">Ajouter</button>
+        {{ form_end(form) }}
+    </form>
+
+    <a href="{{ path('app_compte') }}" class="btn btn-secondary">Retour</a>
+{% endblock %}
