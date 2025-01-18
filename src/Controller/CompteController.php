@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Positive;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 final class CompteController extends AbstractController
 {
@@ -65,6 +67,48 @@ final class CompteController extends AbstractController
             'action' => 'Modifier',
         ]);
     }
-    
 
+    #[Route('/compte/{id}/add-money', name: 'compte_add_money', methods: ['GET', 'POST'])]
+    public function addMoney(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $compte = $entityManager->getRepository(Compte::class)->find($id);
+
+        if (!$compte) {
+            throw $this->createNotFoundException('Compte non trouvé.');
+        }
+
+        // Création d'un formulaire simple pour ajouter de l'argent
+        $form = $this->createFormBuilder()
+            ->add('montant', MoneyType::class, [
+                'currency' => 'EUR',
+                'label' => 'Montant à ajouter',
+                'constraints' => [
+                    new Positive([
+                        'message' => 'Le montant doit être positif.',
+                    ]),
+                ],
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $montant = $data['montant'];
+
+            // Ajouter le montant au solde du compte
+            $compte->setSolde($compte->getSolde() + $montant);
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Montant ajouté avec succès.');
+
+            return $this->redirectToRoute('app_compte');
+        }
+
+        return $this->render('compte/add_money.html.twig', [
+            'form' => $form->createView(),
+            'compte' => $compte,
+        ]);
+    }
 }
