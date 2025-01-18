@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Retirer de l'argent{% endblock %}
+
+{% block main %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Retirer de l'argent de votre compte</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Compte : {{ compte.nom }}</h5>
+                <p class="card-text">Solde actuel : {{ compte.solde|number_format(2, ',', ' ') }} EUR</p>
+
+                {{ form_start(form) }}
+                    <div class="mb-3">
+                        {{ form_label(form.montant, 'Montant à retirer', {'attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.montant, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le montant'}}) }}
+                        {{ form_errors(form.montant) }}
+                    </div>
+                    <button class="btn btn-danger" type="submit">Retirer</button>
+                {{ form_end(form) }}
+
+                <div class="mt-3">
+                    <a href="{{ path('app_compte') }}" class="btn btn-secondary">Retour à la liste des comptes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
