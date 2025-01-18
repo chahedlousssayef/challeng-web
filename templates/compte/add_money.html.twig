@@ -2,15 +2,19 @@
 
 {% block title %}Ajouter de l'argent{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>Ajouter de l'argent au compte : {{ compte.numero }}</h1>
 
-    <form method="post">
-        {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button type="submit" class="btn btn-success">Ajouter</button>
-        {{ form_end(form) }}
-    </form>
+    <div class="card">
+        <div class="card-body">
+            <h4>Montant à ajouter</h4>
 
-    <a href="{{ path('app_compte') }}" class="btn btn-secondary">Retour</a>
+            {{ form_start(form) }}
+                {{ form_row(form.montant) }}
+                <button type="submit" class="btn btn-success">Ajouter</button>
+            {{ form_end(form) }}
+
+            <a href="{{ path('app_compte') }}" class="btn btn-secondary mt-3">Retour à la liste des comptes</a>
+        </div>
+    </div>
 {% endblock %}
