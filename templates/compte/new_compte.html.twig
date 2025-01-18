@@ -4,17 +4,16 @@
 
 {% block main %}
 
+    <h1>Register</h1>
 
-        <h1>Register</h1>
+    {{ form_errors(compteForm) }}
 
-        {{ form_errors(Compteform) }}
-
-            {{ form_start(Compteform) }}
-            {{ form_row(Compteform.solde, {
-                label: 'Solde'
-            }) }}
+    {{ form_start(compteForm) }}
+        {{ form_row(compteForm.solde, {
+            label: 'Solde'
+        }) }}
 
         <button type="submit" class="btn">Register</button>
-        {{ form_end(Compteform) }}
+    {{ form_end(compteForm) }}
 
 {% endblock %}
