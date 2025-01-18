@@ -4,16 +4,17 @@
 
 {% block main %}
     {% if app.user %}
-        {% for Compte in Comptes %}
-            <div class="Compte">
-                <h2>{{ Compte.nom }}</h2>
-                <p>{{ Compte.solde }}</p>
-                <p>{{ Compte.type }}</p>
+        {% for compte in comptes %}
+            <div class="compte">
+                <h2>{{ compte.nom }}</h2>
+                <p>{{ compte.solde|number_format(2, ',', ' ') }} EUR</p>
+                <p>{{ compte.type }}</p>
+
+                <a href="{{ path('compte_add_money', {id: compte.id}) }}" class="btn btn-primary">Ajouter de l'argent</a>
+                <a href="{{ path('compte_remove_money', {id: compte.id}) }}" class="btn btn-danger">Retirer de l'argent</a>
             </div>
-
-           <a href="{{ path('compte_add_money', {id: Compte.id}) }}" class="btn btn-primary">Ajouter de l'argent</a>
-
         {% endfor %}
+
         <a href="{{ path('app_compte_new') }}" class="Compte_button">Créez un compte bancaire</a>
     {% else %}
         <a href="{{ path('app_login') }}" class="Creation-button">Connectez-Vous!</a>
