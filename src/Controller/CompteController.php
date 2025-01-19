@@ -4,13 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Compte;
 use App\Form\CompteFormType;
+use App\Entity\User;
+use App\Repository\CompteRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Positive;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 final class CompteController extends AbstractController
 {
@@ -228,4 +231,22 @@ final class CompteController extends AbstractController
             'sourceCompte' => $sourceCompte,
         ]);
     }
-}
+
+  
+        #[Route('/compte/close/{id}', name: 'compte_fermeture')]
+        public function close(int $id, CompteRepository $compteRepository, EntityManagerInterface $entityManager): Response
+        {
+            $compte = $compteRepository->find($id);
+            $user = $this->getUser();
+    
+            if ($compte && $compte->getUtilisateur() === $user) {
+                $user->closeCompte($compte);
+                $entityManager->persist($user);
+                $entityManager->flush();
+    
+                return new Response('Compte fermez.');
+            }
+    
+            return new Response('Compte non trouvez.', Response::HTTP_FORBIDDEN);
+        }
+    }
