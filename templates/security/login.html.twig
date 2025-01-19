@@ -4,13 +4,24 @@
 
 {% block main %}
 <div class="login">
-<h1>Connexion <img src="{{asset('image/user-add.svg')}}" alt="user-icon" width="30"></h1>
+<h1>Connexion</h1>
 <style>
 		.login_form {
-			background-image: url("{{ asset('image/imagelogin.jpg') }}");
- 			background-repeat:no-repeat;
- 			background-size:cover;
-			} 
+            background-image: url("{{ asset('image/connexion.jpg') }}"); /* Remplacez par l'image de fond */
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 40px;
+            width: 70%;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 40px auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            color: black;
+            text-align: center;
+		} 
 	</style>
 <form method="POST" class ="login_form">
 
@@ -25,6 +36,35 @@
             <a href="{{ path('app_logout') }}">Se deconnecter</a> </button>
         </div>
     {% else %}
+
+
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="champ" autocomplete="email" required autofocus>
+    <label for="inputPassword">Mot de Passe</label>
+    <input type="password" name="password" id="inputPassword" class="champ" autocomplete="current-password" required>
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    <div class="Se souvenir de moi">
+        <label>
+            <input type="checkbox" name="_remember_me" class ="checkbox">Se souvenir de moi
+        </label>
+    </div>
+
+        <button class="login_button" type="submit">
+        Validez
+    </button>
+
+        
+
+</form>
+
+    <a href="{{ path('app_register') }}" class="Creation-button"> Creez votre Compte!</a>
+    </div>
+
+{% endif %}
+{% endblock %}
 
 
     <label for="inputEmail">Email</label>
