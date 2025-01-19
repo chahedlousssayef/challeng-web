@@ -117,4 +117,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
         return $this;
     }
+
+    public function closeCompte(Compte $compte): static
+    {
+        if ($this->comptes->contains($compte)) {
+            $this->comptes->removeElement($compte);
+            if ($compte->getUtilisateur() === $this) {
+                $compte->setUtilisateur(null);
+            }
+        }
+        return $this;
+    }
+    
+
 }
