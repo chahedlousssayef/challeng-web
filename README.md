@@ -1,51 +1,17 @@
-# BankShop
+A web application to manage your bank account online! (( Run composer install when you retrieve the files to create the missing ones as well as composer require webapp ))
 
-Une application web pour gérer votre compte bancaire en ligne !
-((
-Faites composer install quand vous récuperer les fichiers pour créer ceux qui manque
+To create the database, after downloading the files, make a copy of the .env file and rename this copy to .env.local. Then, comment out line 29 and uncomment line 27, replacing the information with your MySQL details. Create a folder called migrations, then run the command symfony console doctrine:database:create. Next, run the command php bin/console make:migration, and finally, run the command php bin/console doctrine:migration:migrate. The database is now ready to be used.
 
-ajouter ce code dans le fichier config/route.yaml
+The goal of BankShop is to allow clients to check their account, make withdrawals, deposits, and transfers in an intuitive and secure environment. Each person can open up to 5 accounts (savings or current) while benefiting from maximum security ensuring the well-being of the clients.
 
-home:
-    path: /
-    controller: App\Controller\HomeController::index.
+Prerequisites: Unit Tests (please enable the mbstring extension in your php.ini and remove the semicolon, then run this command at the root of the project: php bin/phpunit tests/Controller/BaseTemplateTest.php and adjust with the test names present in this folder)
 
+Our main features are:
 
-Le fichier devrait ressembler à ça :
+Checking deposits and withdrawals from your account
 
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+Checking users and transactions for admins
 
-home:
-    path: /
-    controller: App\Controller\HomeController::index
+Secure registration and login
 
-))
-
-
-L'objectif de BankShop est de permettre aux client de consulter leur compte, de faire des retraits,
-des dépots d'argent mais aussi de faire des virements dans un environnement intuitif et sécurisé .
-Chaque personne peut ouvrir jusqu'a 5 comptes maximum (épargne ou courant) toute en bénéficiant d'une 
-sécurité maximale garantissant le bien-être des clients
-
-Prérequis :
-Tests Unitaire (veuillez activer l'extension mbstring dans votre Php.ini et retirez le point virgule
-puis faites cette commande à la racine du projet :   php bin/phpunit tests/Controller/BaseTemplateTest.php    
-et ajuster avec les noms de test present dans ce dossier)
-
-
-
-
-Nos Principales fonctionnalités sont :
-
-Consultation des dépots et retraits de son compte
-Consultation des users et transactions pour les admin
-Inscription et connexion sécurisée
-
-
-Backend : Symfony (php)
-Base de données : 
-Frontend : twig
+Backend: Symfony (PHP) Database: Frontend: Twig
