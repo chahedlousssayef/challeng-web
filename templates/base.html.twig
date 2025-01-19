@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>{% block title %}BankShop!{% endblock %}</title>
+    <title>{% block title %}Circle Blog!{% endblock %}</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -26,7 +26,12 @@
 
             <a href="{{ path('app_login') }}">Connexion</a> 
             
-            <a href="{{ path('app_contact') }}">Nous Contacter</a>
+            <a href="{{ path('app_contact') }}">Nous Contactez</a>
+
+            {% if app.user and is_granted('ROLE_Admin')%}
+
+                <a href="{{ path('app_compte') }}"> <button type="submit">Mes Messages</button> </a>
+            {% endif %}
 
             <a href="{{ path('app_compte') }}"> <button type="submit">Mon compte</button> </a>
 
@@ -63,6 +68,4 @@
 
 
 </html>
-
-
 
