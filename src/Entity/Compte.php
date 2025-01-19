@@ -11,6 +11,9 @@ use App\Entity\User;
 #[ORM\HasLifecycleCallbacks]
 class Compte
 {
+    public const TYPE_COURANT = false;
+    public const TYPE_EPARGNE = true;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -70,7 +73,7 @@ class Compte
         return $this;
     }
 
-    public function isType(): ?bool
+    public function getType(): ?bool
     {
         return $this->type;
     }
@@ -98,4 +101,3 @@ class Compte
         $this->numero = (string) random_int(1000000000, 9999999999);
     }
 }
-
