@@ -19,6 +19,7 @@
                     <a href="{{ path('compte_add_money', {id: compte.id}) }}" class="btn btn-primary">Dépôt</a>
                     <a href="{{ path('compte_remove_money', {id: compte.id}) }}" class="btn btn-danger">Retrait</a>
                     <a href="{{ path('compte_transfer', {id: compte.id}) }}" class="btn btn-warning">Virement</a>
+                    <a href="{{ path('compte_fermeture', {id: compte.id}) }}">supprimez le compte</a>
                 </div>
             {% endfor %}
         {% endif %}
