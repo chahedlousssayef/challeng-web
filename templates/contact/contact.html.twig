@@ -5,7 +5,7 @@
 
 {% block main %}
         <div class ="contact">
-                <p class="contact_title">  Comment nous contacter ?</p>
+                <p class="contact_title">  Comment nous contactez ?</p>
                 <div class ="contact_info_style">
 
                         <style>
@@ -37,46 +37,18 @@
                 <div class ="localisation">
                         <div>
                                 <div  class ="text_localisation">
-                                        <p>Nous localiser  <br> 19 rue de Charlemagne, Paris </p>
+                                        <p>Nous localisez  <br> 19 rue de Charlemagne, Paris </p>
                                 </div>
-                                <p>Venez nous rencontrer pour prendre soin de  votre argent. <br>
+                                <p>Venez nous rencontrez pour prendre soin de  votre argent. <br>
                                 Nos Clients sont les bienvenues au sein de BankShop   </p>
                         </div>
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.210273844191!2d2.3571617763574455!3d48.854200571331674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e671fdb8bfde51%3A0x3bced4742b9ad6b!2s19%20Rue%20Charlemagne%2C%2075004%20Paris!5e0!3m2!1sfr!2sfr!4v1736871643109!5m2!1sfr!2sfr" width="450" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 
                 </div>
 
-                         <style>
-		                .Form_contact {
-			        background-image: url("{{ asset('image/image_formulaire.jpg') }}");
- 			        background-repeat:no-repeat;
- 			        background-size:cover;
-			        height: 80%;
-                                border-radius:50px;
-			} 
-	                </style>
-                        <div class ="Form_contact">
-                                <h2>Formulaire de contact</h2>
-                                        <form action="/submit" method="post" enctype="multipart/form-data" class ="form_info">
-                                        <div>
-                                                <label for="email">Email :</label>
-                                                <input type="email" id="email" name="email" required>
-                                        </div>
-                                        <div class="message_contact">
-                                                <label for="message">Votre message:</label>
-                                                <textarea id="message" name="message" rows="8" required></textarea>
-                                        </div>
-                                        <div class = "Button_submit">
-                                                <button type="submit">Envoyer</button>
-                                        </div>
-
-                                </form>
-                        </div>
 
 
 
         </div>
 
 {% endblock %}
-
-
