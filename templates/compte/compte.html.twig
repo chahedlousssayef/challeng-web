@@ -1,24 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Compte{% endblock %}
+{% block title %}Mes Comptes{% endblock %}
 
 {% block main %}
     {% if app.user %}
-        {% for compte in comptes %}
-            <div class="compte">
-                <h2>{{ compte.nom }}</h2>
-                <p>{{ compte.solde|number_format(2, ',', ' ') }} EUR</p>
-                <p>{{ compte.type }}</p>
-                <p><strong>Numéro du compte :</strong> {{ compte.numero }}</p>
+        <h1>Bienvenue, {{ app.user.email }}</h1>
 
-                <a href="{{ path('compte_add_money', {id: compte.id}) }}" class="btn btn-primary">Depot</a>
-                <a href="{{ path('compte_remove_money', {id: compte.id}) }}" class="btn btn-danger">Retrait</a>
-                <a href="{{ path('compte_transfer', {id: compte.id}) }}" class="btn btn-warning">Virement</a>
-            </div>
-        {% endfor %}
+        {% if comptes is empty %}
+            <p>Aucun compte bancaire trouvé.</p>
+        {% else %}
+            {% for compte in comptes %}
+                <div class="compte">
+                    <h2>{{ compte.nom }}</h2>
+                    <p><strong>Solde :</strong> {{ compte.solde|number_format(2, ',', ' ') }} EUR</p>
+                    <p><strong>Type :</strong> {{ compte.type ? 'Compte épargne' : 'Compte courant' }}</p>
+                    <p><strong>Numéro du compte :</strong> {{ compte.numero }}</p>
 
-        <a href="{{ path('app_compte_new') }}" class="Compte_button">Créez un compte bancaire</a>
+                    <a href="{{ path('compte_add_money', {id: compte.id}) }}" class="btn btn-primary">Dépôt</a>
+                    <a href="{{ path('compte_remove_money', {id: compte.id}) }}" class="btn btn-danger">Retrait</a>
+                    <a href="{{ path('compte_transfer', {id: compte.id}) }}" class="btn btn-warning">Virement</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if comptes|length >= 5 %}
+            <p class="text-danger">Vous avez atteint la limite de 5 comptes.</p>
+        {% else %}
+            <a href="{{ path('app_compte_new') }}" class="btn btn-success">Créer un compte bancaire</a>
+        {% endif %}
     {% else %}
-        <a href="{{ path('app_login') }}" class="Creation-button">Connectez-Vous!</a>
+        <p>Veuillez vous connecter pour voir vos comptes bancaires.</p>
+        <a href="{{ path('app_login') }}" class="btn btn-primary">Connectez-vous</a>
     {% endif %}
 {% endblock %}
