@@ -9,9 +9,11 @@
                 <h2>{{ compte.nom }}</h2>
                 <p>{{ compte.solde|number_format(2, ',', ' ') }} EUR</p>
                 <p>{{ compte.type }}</p>
+                <p><strong>Numéro du compte :</strong> {{ compte.numero }}</p>
 
-                <a href="{{ path('compte_add_money', {id: compte.id}) }}" class="btn btn-primary">Ajouter de l'argent</a>
-                <a href="{{ path('compte_remove_money', {id: compte.id}) }}" class="btn btn-danger">Retirer de l'argent</a>
+                <a href="{{ path('compte_add_money', {id: compte.id}) }}" class="btn btn-primary">Depot</a>
+                <a href="{{ path('compte_remove_money', {id: compte.id}) }}" class="btn btn-danger">Retrait</a>
+                <a href="{{ path('compte_transfer', {id: compte.id}) }}" class="btn btn-warning">Virement</a>
             </div>
         {% endfor %}
 
