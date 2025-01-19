@@ -296,7 +296,7 @@ h1 {
 }
 
 .btn-primary {
-    background-color: #74af60; /* Vert */
+    background-color: #74af60; 
     border: none;
 }
 
@@ -306,7 +306,7 @@ h1 {
 }
 
 .btn-danger {
-    background-color: #e74c3c; /* Rouge */
+    background-color: #e74c3c; 
     border: none;
 }
 
@@ -316,7 +316,7 @@ h1 {
 }
 
 .btn-warning {
-    background-color: #f39c12; /* Orange */
+    background-color: #f39c12; 
     border: none;
 }
 
@@ -355,7 +355,7 @@ h1 {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa; /* Fond gris clair */
+    background-color: #f8f9fa;
     margin: 0;
     padding: 0;
 }
@@ -400,7 +400,7 @@ h1 {
 
 .form-control:focus {
     outline: none;
-    border-color: #74af60; /* Bordure verte au focus */
+    border-color: #74af60; 
     box-shadow: 0 0 5px rgba(116, 175, 96, 0.5);
 }
 
@@ -467,7 +467,7 @@ h1 {
 
 .form-row {
     margin-bottom: 20px;
-    text-align: left; /* Aligne les champs à gauche */
+    text-align: left; 
 }
 
 label {
@@ -489,13 +489,13 @@ input {
 
 input:focus {
     outline: none;
-    border-color: #74af60; /* Bordure verte au focus */
+    border-color: #74af60; 
     box-shadow: 0 0 5px rgba(116, 175, 96, 0.5);
 }
 
 .alert {
     padding: 15px;
-    background-color: #e74c3c; /* Rouge pour les erreurs */
+    background-color: #e74c3c; 
     color: white;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -503,7 +503,7 @@ input:focus {
 }
 
 .btn-success {
-    background-color: #2ecc71; /* Vert pour le virement */
+    background-color: #2ecc71; 
     color: white;
     border: none;
     border-radius: 8px;
@@ -516,7 +516,7 @@ input:focus {
 
 .btn-success:hover {
     background-color: #27ae60;
-    transform: scale(1.05); /* Légère animation au survol */
+    transform: scale(1.05); 
 }
 
 .btn-secondary {
