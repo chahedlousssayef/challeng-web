@@ -17,7 +17,13 @@ final class CompteController extends AbstractController
     #[Route('/compte', name: 'app_compte')]
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $comptes = $entityManager->getRepository(Compte::class)->findAll();
+        $user = $this->getUser();
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour voir vos comptes.');
+        }
+
+        $comptes = $entityManager->getRepository(Compte::class)->findBy(['utilisateur' => $user]);
+
         return $this->render('compte/compte.html.twig', [
             'controller_name' => 'CompteController',
             'comptes' => $comptes,
@@ -27,14 +33,33 @@ final class CompteController extends AbstractController
     #[Route('/compte/new', name: 'app_compte_new')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour créer un compte.');
+        }
+
+        // -------------------- LIGNES AJOUTÉES POUR LA VÉRIFICATION --------------------
+        $compteRepository = $entityManager->getRepository(Compte::class);
+        $nombreDeComptes = $compteRepository->count(['utilisateur' => $user]);
+
+        if ($nombreDeComptes >= 5) {
+            $this->addFlash('error', 'Vous avez atteint la limite de 5 comptes.');
+            return $this->redirectToRoute('app_compte');
+        }
+        // -----------------------------------------------------------------------------
+
         $entity = new Compte();
-        $entity->setNumero(uniqid('ACC-')); // Génère un numéro unique pour le compte
+        $entity->setNumero(uniqid('ACC-'));
+        $entity->setUtilisateur($user);
+
         $compteForm = $this->createForm(CompteFormType::class, $entity);
         $compteForm->handleRequest($request);
 
         if ($compteForm->isSubmitted() && $compteForm->isValid()) {
             $entityManager->persist($entity);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Compte créé avec succès.');
 
             return $this->redirectToRoute('app_compte');
         }
@@ -43,22 +68,23 @@ final class CompteController extends AbstractController
             'compteForm' => $compteForm->createView(),
         ]);
     }
-
+    
     #[Route('/compte/{id}/update', name: 'compte_update')]
     public function update(int $id, EntityManagerInterface $entityManager, Request $request): Response
     {
-        $entity = $entityManager->getRepository(Compte::class)->find($id);
+        $compte = $entityManager->getRepository(Compte::class)->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Compte non trouvé.');
+        if (!$compte || $compte->getUtilisateur() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Vous ne pouvez pas modifier ce compte.');
         }
 
-        $compteForm = $this->createForm(CompteFormType::class, $entity);
+        $compteForm = $this->createForm(CompteFormType::class, $compte);
         $compteForm->handleRequest($request);
 
         if ($compteForm->isSubmitted() && $compteForm->isValid()) {
-            $entityManager->persist($entity);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Compte mis à jour avec succès.');
 
             return $this->redirectToRoute('app_compte');
         }
@@ -74,8 +100,8 @@ final class CompteController extends AbstractController
     {
         $compte = $entityManager->getRepository(Compte::class)->find($id);
 
-        if (!$compte) {
-            throw $this->createNotFoundException('Compte non trouvé.');
+        if (!$compte || $compte->getUtilisateur() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Vous ne pouvez pas accéder à ce compte.');
         }
 
         $form = $this->createFormBuilder()
@@ -112,8 +138,8 @@ final class CompteController extends AbstractController
     {
         $compte = $entityManager->getRepository(Compte::class)->find($id);
 
-        if (!$compte) {
-            throw $this->createNotFoundException('Compte non trouvé.');
+        if (!$compte || $compte->getUtilisateur() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Vous ne pouvez pas accéder à ce compte.');
         }
 
         $form = $this->createFormBuilder()
@@ -154,8 +180,8 @@ final class CompteController extends AbstractController
     {
         $sourceCompte = $entityManager->getRepository(Compte::class)->find($id);
 
-        if (!$sourceCompte) {
-            throw $this->createNotFoundException('Compte source non trouvé.');
+        if (!$sourceCompte || $sourceCompte->getUtilisateur() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Vous ne pouvez pas transférer à partir de ce compte.');
         }
 
         $form = $this->createFormBuilder()
@@ -186,17 +212,11 @@ final class CompteController extends AbstractController
             $montant = $data['montant'];
 
             if ($sourceCompte->getSolde() >= $montant) {
-                // Mise à jour des soldes
                 $sourceCompte->setSolde($sourceCompte->getSolde() - $montant);
                 $destinationCompte->setSolde($destinationCompte->getSolde() + $montant);
-
-                // Sauvegarde des modifications
-                $entityManager->persist($sourceCompte);
-                $entityManager->persist($destinationCompte);
                 $entityManager->flush();
 
                 $this->addFlash('success', 'Virement effectué avec succès.');
-                return $this->redirectToRoute('app_compte');
             } else {
                 $this->addFlash('error', 'Solde insuffisant pour effectuer le virement.');
             }
@@ -208,3 +228,4 @@ final class CompteController extends AbstractController
         ]);
     }
 }
+
