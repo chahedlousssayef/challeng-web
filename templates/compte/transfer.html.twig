@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Virement{% endblock %}
+
+{% block main %}
+    <h1>Virement depuis le compte {{ sourceCompte.nom }}</h1>
+    <p><strong>Numéro de compte :</strong> {{ sourceCompte.numero }}</p>
+    <p><strong>Solde actuel :</strong> {{ sourceCompte.solde|number_format(2, ',', ' ') }} EUR</p>
+
+    {# Affichage des erreurs #}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+
+    {# Formulaire de virement #}
+    {{ form_start(form) }}
+        {{ form_row(form.numero, { 'label': 'Numéro du compte destinataire' }) }}
+        {{ form_row(form.montant, { 'label': 'Montant à transférer (en EUR)' }) }}
+
+        <button class="btn btn-success">Effectuer le virement</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_compte') }}" class="btn btn-secondary">Retour</a>
+{% endblock %}
+
