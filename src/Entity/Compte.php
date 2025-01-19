@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CompteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: CompteRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -27,6 +28,10 @@ class Compte
     #[ORM\Column]
     private ?bool $type = null;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comptes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $utilisateur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -40,7 +45,6 @@ class Compte
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -52,7 +56,6 @@ class Compte
     public function setSolde(float $solde): static
     {
         $this->solde = $solde;
-
         return $this;
     }
 
@@ -64,7 +67,6 @@ class Compte
     public function setNumero(string $numero): static
     {
         $this->numero = $numero;
-
         return $this;
     }
 
@@ -76,7 +78,17 @@ class Compte
     public function setType(bool $type): static
     {
         $this->type = $type;
+        return $this;
+    }
 
+    public function getUtilisateur(): ?User
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?User $utilisateur): static
+    {
+        $this->utilisateur = $utilisateur;
         return $this;
     }
 
@@ -85,7 +97,5 @@ class Compte
     {
         $this->numero = (string) random_int(1000000000, 9999999999);
     }
-
 }
-
 
