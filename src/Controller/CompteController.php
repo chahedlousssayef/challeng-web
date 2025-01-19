@@ -38,7 +38,7 @@ final class CompteController extends AbstractController
             throw $this->createAccessDeniedException('Vous devez être connecté pour créer un compte.');
         }
 
-        // -------------------- LIGNES AJOUTÉES POUR LA VÉRIFICATION --------------------
+        // Vérification de la limite de comptes (max 5 comptes)
         $compteRepository = $entityManager->getRepository(Compte::class);
         $nombreDeComptes = $compteRepository->count(['utilisateur' => $user]);
 
@@ -46,7 +46,6 @@ final class CompteController extends AbstractController
             $this->addFlash('error', 'Vous avez atteint la limite de 5 comptes.');
             return $this->redirectToRoute('app_compte');
         }
-        // -----------------------------------------------------------------------------
 
         $entity = new Compte();
         $entity->setNumero(uniqid('ACC-'));
@@ -56,6 +55,10 @@ final class CompteController extends AbstractController
         $compteForm->handleRequest($request);
 
         if ($compteForm->isSubmitted() && $compteForm->isValid()) {
+            // Vérifier si la case épargne est cochée ou non
+            $isEpargne = $compteForm->get('type')->getData();
+            $entity->setType($isEpargne ? Compte::TYPE_EPARGNE : Compte::TYPE_COURANT);
+
             $entityManager->persist($entity);
             $entityManager->flush();
 
@@ -68,7 +71,7 @@ final class CompteController extends AbstractController
             'compteForm' => $compteForm->createView(),
         ]);
     }
-    
+
     #[Route('/compte/{id}/update', name: 'compte_update')]
     public function update(int $id, EntityManagerInterface $entityManager, Request $request): Response
     {
@@ -165,8 +168,6 @@ final class CompteController extends AbstractController
             } else {
                 $this->addFlash('error', 'Solde insuffisant pour effectuer ce retrait.');
             }
-
-            return $this->redirectToRoute('app_compte');
         }
 
         return $this->render('compte/remove_money.html.twig', [
@@ -228,4 +229,3 @@ final class CompteController extends AbstractController
         ]);
     }
 }
-
