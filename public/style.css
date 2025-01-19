@@ -103,17 +103,19 @@ main button {
     color: white;
     border-radius: 25px;
     border: none;
-    padding: 15px;
-    margin-left: 1px;
-    margin-top: 20px;
-    height: 60px;
+    padding: 0;
+    margin-left: 8px;
+    margin-top: 80px;
+    height: 55px;
     width: 220px;
-    font-size: 28px;
+    font-size: 23px;
     filter: drop-shadow(3px 3px 1.50px gray);
+    text-decoration: none;
 }
 
 main button:hover{
     background-color: lightblue;
+    text-decoration: none;
 }
 .texte_main_promo {
     display: flex;
@@ -236,3 +238,300 @@ footer a {
     text-decoration: none;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; 
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 28px;
+    color: #333;
+}
+
+.compte {
+    background-color: #ffffff; 
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    width: 80%;
+    max-width: 600px;
+    text-align: left;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.compte h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.compte p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.compte strong {
+    font-weight: bold;
+    color: #333;
+}
+
+.compte .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    color: white;
+    margin: 10px 5px 0 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #74af60; /* Vert */
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #5c9b42;
+    transform: scale(1.05);
+}
+
+.btn-danger {
+    background-color: #e74c3c; /* Rouge */
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+.btn-warning {
+    background-color: #f39c12; /* Orange */
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #d35400;
+    transform: scale(1.05);
+}
+
+.text-danger {
+    color: #e74c3c;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.btn-success {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #2ecc71; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #27ae60;
+    transform: scale(1.05);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Fond gris clair */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px 30px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-text {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #555;
+}
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #74af60; /* Bordure verte au focus */
+    box-shadow: 0 0 5px rgba(116, 175, 96, 0.5);
+}
+
+.form-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.mb-3 {
+    margin-bottom: 20px;
+}
+
+.form-errors {
+    font-size: 14px;
+    color: red;
+    margin-top: 5px;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #444;
+}
+
+.container-virement {
+    width: 80%;
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px 30px;
+    text-align: center;
+}
+
+.form-row {
+    margin-bottom: 20px;
+    text-align: left; /* Aligne les champs à gauche */
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    border-color: #74af60; /* Bordure verte au focus */
+    box-shadow: 0 0 5px rgba(116, 175, 96, 0.5);
+}
+
+.alert {
+    padding: 15px;
+    background-color: #e74c3c; /* Rouge pour les erreurs */
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.btn-success {
+    background-color: #2ecc71; /* Vert pour le virement */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #27ae60;
+    transform: scale(1.05); /* Légère animation au survol */
+}
+
+.btn-secondary {
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.btn-secondary:hover {
+    background-color: #444;
+}
