@@ -12,10 +12,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
+    private const ADMIN_CODE = 'SECRET123'; // Code pour créer un compte admin
+
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
     {
@@ -24,16 +25,20 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
-
-            // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+
+            $adminCode = $form->get('admin_code')->getData();
+            if ($adminCode === self::ADMIN_CODE) {
+                $user->setRoles([User::ROLE_ADMIN]);
+                $this->addFlash('success', 'Vous avez été enregistré en tant qu\'administrateur.');
+            } else {
+                $user->setRoles([User::ROLE_USER]);
+                $this->addFlash('success', 'Compte utilisateur créé avec succès.');
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
-
-            // do anything else you need here, like send an email
 
             return $security->login($user, LoginAuthenticator::class, 'main');
         }
