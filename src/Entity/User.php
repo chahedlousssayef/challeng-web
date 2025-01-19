@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -22,22 +24,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
-    /**
-     * @var list<string> The user roles
-     */
     #[ORM\Column]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Compte::class, cascade: ['persist', 'remove'])]
+    private Collection $comptes;
+
     public function __construct()
     {
-        // Assign ROLE_USER by default
         $this->roles = ['ROLE_USER'];
+        $this->comptes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,47 +52,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
-    
+
     public function getUsername(): string
     {
         return $this->email;
     }
 
-    /**
-     * @see UserInterface
-     * @return list<string>
-     */
     public function getRoles(): array
     {
         return array_unique($this->roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -102,18 +84,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        // Clear sensitive data here if needed
     }
 
-}
+    /**
+     * @return Collection<int, Compte>
+     */
+    public function getComptes(): Collection
+    {
+        return $this->comptes;
+    }
 
+    public function addCompte(Compte $compte): static
+    {
+        if (!$this->comptes->contains($compte)) {
+            $this->comptes[] = $compte;
+            $compte->setUtilisateur($this);
+        }
+        return $this;
+    }
+
+    public function removeCompte(Compte $compte): static
+    {
+        if ($this->comptes->removeElement($compte)) {
+            if ($compte->getUtilisateur() === $this) {
+                $compte->setUtilisateur(null);
+            }
+        }
+        return $this;
+    }
+}
