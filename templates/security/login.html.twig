@@ -65,33 +65,3 @@
 
 {% endif %}
 {% endblock %}
-
-
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="champ" autocomplete="email" required autofocus>
-    <label for="inputPassword">Mot de Passe</label>
-    <input type="password" name="password" id="inputPassword" class="champ" autocomplete="current-password" required>
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <div class="Se souvenir de moi">
-        <label>
-            <input type="checkbox" name="_remember_me" class ="checkbox">Se souvenir de moi
-        </label>
-    </div>
-
-        <button class="login_button" type="submit">
-        Validez
-    </button>
-
-        
-
-</form>
-
-    <a href="{{ path('app_register') }}" class="Creation-button"> Creez votre Compte!</a>
-    </div>
-
-{% endif %}
-{% endblock %}
-
